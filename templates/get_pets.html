@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h1 class="display-1">Pets</h1>
+    <div class="row">
+        {% for pet in pets %}
+        <div class="col-4">
+            <a href="/{{pet.id}}">
+                <img class="img-thumbnail" src="{{pet.photo_url}}" alt="pet image">
+            </a>
+            <figcaption>
+                <span class="lead" style="color:green">{{pet.name}}</span> is
+                {% if pet.available %}
+                <b>available!</b>
+                {% else %}
+                not available!
+                {% endif %}
+            </figcaption>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="btn btn-success" href="/add">Add Pet</a>
+</div>
+{% endblock %}

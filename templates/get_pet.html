@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-4 d-flex flex-column justify-content-center">
+            <img class="img-fluid img-thumbnail" src="{{pet.photo_url}}" alt="Pet Image">
+            <figcaption>
+                <p class="mb-0"><b><i>Species: </i></b><span class="lead">{{pet.species}}</span></p>
+                <p><b><i>Age: </i></b><span class="lead">{{pet.age}}</span></p>
+            </figcaption>
+        </div>
+        <div class="col-8">
+            <h1 class="display-1">{{pet.name}}</h1>
+            <form action="/{{pet.id}}" method="POST">
+                {{form.hidden_tag()}}
+
+                <div class="form-check form-switch">
+                    {{form.available(class_="form-check-input", **{'role': 'switch'})}}
+                    {{form.available.label(class_="form-check-label")}}
+                </div>
+                <div class="input-group">
+                    {{form.notes.label(class_="input-group-text")}}
+                    {{form.notes(class_="form-control", **{'rows': '3'})}}
+                </div>
+                <div class="input-group">
+                    {{form.photo_url.label(class_="input-group-text")}}
+                    {{form.photo_url(class_="form-control")}}
+                </div>
+                {% for error in form.photo_url.errors %}
+                <small class="text-danger">{{error}}</small>
+                {% endfor %}
+                <div class="row justify-content-end">
+                    <button class="col-auto btn btn-success">Save</button>
+                    <a class="col-auto align-self-end btn btn-danger" href="/">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
